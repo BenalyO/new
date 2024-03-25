@@ -1,8 +1,3 @@
-# Objectifs
-1) Déployer manuellement l'app sur heroku cloud
-2) Réaliser un changement en local et déployer manuellement sur Heroku
-3) Mettre en place un pipeline de CI/CD vers Github avec déploiement sur Heroku
-4) Réaliser un changement en local, lancer le pipeline et déployer sur heroku
 
 # Réalisations
 
@@ -127,43 +122,7 @@ $ heroku ps:scale web=1
    Ouvrez votre fichier YAML et configurez votre workflow. Voici un exemple de configuration qui installe les dépendances Python, effectue du formattage de code (_linting_) avec `black` et `flake8` :
 
    ```yaml
-    name: Python application CI
 
-    on:
-      push:
-        branches: [ "main" ]
-
-    permissions:
-      contents: read
-
-    jobs:
-      build:
-
-        runs-on: ubuntu-latest
-
-        steps:
-        - uses: actions/checkout@v4
-        - name: Set up Python 3.11
-          uses: actions/setup-python@v4
-          with:
-            python-version: '3.11'
-            cache: 'pip'
-        - name: Install dependencies
-          run: |
-            python -m pip install --upgrade pip
-            pip install flake8 pytest
-            if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-        - name: Lint with flake8
-          run: |
-            # stop the build if there are Python syntax errors or undefined names
-            flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
-            # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
-            flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
-        - name: Lint with black
-          uses: psf/black@stable  # formatting with black
-          continue-on-error: true
-
-   ```
 
 3. **Poussez vos changements**
 
